@@ -14,6 +14,3 @@ def predict_price(input_data,x_train_processed,y_train):
     prediction=models["Random Forest"].predict(input_processed)
 
     return prediction[0]
-
-#created tune code branch
-#created tune commit commit 2
