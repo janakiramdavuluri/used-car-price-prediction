@@ -1,0 +1,8 @@
+{
+  "rows": 4340,
+  "columns": 8,
+  "duplicates": 763,
+  "validation_errors": 0,
+  "schema_valid": true,
+  "note": "Exact duplicate rows are reported, not treated as schema failures."
+}

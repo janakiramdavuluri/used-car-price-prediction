@@ -1,0 +1,8 @@
+{
+  "model_name": "UsedCarPricePredictor",
+  "candidate_version": 2,
+  "run_id": "6a005f0dcb874292a008c218bbc5068b",
+  "source": "models:/m-b372cb6710f245f4997fc32651aaef9a",
+  "status": "READY",
+  "production_promotion": "not performed; requires separate approval"
+}

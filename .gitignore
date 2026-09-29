@@ -15,3 +15,7 @@ env/
 Thumbs.db
 # Logs
 *.log
+# MLflow
+mlruns/
+mlflow.db
+mlflow.db-*
