@@ -1,0 +1,39 @@
+data:
+  raw_path: data/raw/CAR DETAILS FROM CAR DEKHO.csv
+  target_column: selling_price
+  required_columns:
+    - name
+    - year
+    - selling_price
+    - km_driven
+    - fuel
+    - seller_type
+    - transmission
+    - owner
+
+split:
+  test_size: 0.2
+  random_state: 42
+
+mlflow:
+  tracking_uri: sqlite:///mlflow.db
+  experiment_name: Used_Car_Price_Prediction
+
+quality_gate:
+  maximum_mae: 200000
+  minimum_r2: 0.0
+  maximum_distribution_psi: 0.2
+
+retraining:
+  maximum_mae_regression_fraction: 0.02
+
+monitoring:
+  minimum_samples_for_drift: 30
+
+paths:
+  report: reports/lab7_pipeline_report.json
+  candidates_dir: models/candidates
+  dataset_versions_dir: data/versions
+  inference_log: logs/inference/inference.jsonl
+  monitoring_report: reports/monitoring_report.json
+  labeled_predictions: data/monitoring/labeled_predictions.csv

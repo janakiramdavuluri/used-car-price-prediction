@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: used-car-price-api
+  labels:
+    app: used-car-price-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: used-car-price-api
+  template:
+    metadata:
+      labels:
+        app: used-car-price-api
+    spec:
+      containers:
+        - name: api
+          image: used-car-price-api:lab11
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8000
+          env:
+            - name: USED_CAR_MODEL_PATH
+              value: /app/deployment/model.joblib
+            - name: USED_CAR_METADATA_PATH
+              value: /app/deployment/model_metadata.json
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 1
+              memory: 1Gi

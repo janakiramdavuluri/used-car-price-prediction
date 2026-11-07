@@ -1,0 +1,61 @@
+name: Used Cars MLOps CI
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "config.yaml"
+      - "src/**"
+      - "pipelines/**"
+      - "api/**"
+      - "tests/**"
+      - "requirements*.txt"
+      - "Dockerfile"
+      - ".dockerignore"
+      - "k8s/**"
+      - "src/prepare_deployment.py"
+      - "data/raw/CAR DETAILS FROM CAR DEKHO.csv"
+      - ".github/workflows/lab8_ci.yml"
+  pull_request:
+    paths:
+      - "config.yaml"
+      - "src/**"
+      - "pipelines/**"
+      - "api/**"
+      - "tests/**"
+      - "requirements*.txt"
+      - "Dockerfile"
+      - ".dockerignore"
+      - "k8s/**"
+      - "src/prepare_deployment.py"
+      - "data/raw/CAR DETAILS FROM CAR DEKHO.csv"
+      - ".github/workflows/lab8_ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: python -m pip install -r requirements.txt
+      - run: python pipelines/run_lab7_pipeline.py
+      - run: python src/prepare_deployment.py
+      - run: python -m pytest tests -q
+      - run: docker build -t used-car-price-api:ci .
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: used-cars-lab8-${{ github.run_number }}
+          path: |
+            reports/lab7_pipeline_report.json
+            mlruns/**
+          if-no-files-found: ignore

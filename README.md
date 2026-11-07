@@ -139,3 +139,7 @@ Make sure the dataset is available at:
 ```text
 data/raw/CAR DETAILS FROM CAR DEKHO.csv
 ```
+
+## MLOps Labs 7–13
+
+The remaining regression MLOps workflow, execution commands, safeguards, and verification notes are documented in [docs/LABS_7_13.md](docs/LABS_7_13.md). The workflow adds validated MLflow experiments, regression quality gates, candidate comparison, FastAPI inference, containerization, monitoring, and approval-gated retraining. It does not automatically change the registered candidate or Production model.

@@ -19,3 +19,11 @@ Thumbs.db
 mlruns/
 mlflow.db
 mlflow.db-*
+# Generated model artifacts and serving logs
+models/candidates/
+deployment/model.joblib
+deployment/model_metadata.json
+logs/inference/
+outputs/monitoring/
+outputs/retraining/
+data/versions/
